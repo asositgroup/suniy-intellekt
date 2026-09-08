@@ -23,7 +23,7 @@
 .ring-in{left:66px;top:376px;width:264px;height:264px;border-radius:50%;background:rgba(255,255,255,.10)}
 .glow{left:114px;top:317px;width:147px;height:147px;border-radius:50%;background:linear-gradient(160deg,var(--gold-1) 0%,var(--gold-2) 50%,rgba(255,223,112,.83) 100%);filter:blur(50px)}
 .fade{left:0;top:434px;width:390px;height:218px;background:linear-gradient(180deg,rgba(26,25,25,0) 0%,var(--ink) 56%)}
-.person{left:63px;top:164px;width:249px;height:293px}
+.person{left:63px;top:228px;width:249px;height:293px}
 .clock-ico{left:20px;top:21px;width:13px;height:13px}
 .clock-txt{left:37px;top:19px;width:84px;font-size:16px;line-height:16px;text-align:center}
 .logo{left:162px;top:1px;width:52px;height:52px}
@@ -32,13 +32,11 @@
 .h1{left:20px;top:57px;width:350px;font-family:var(--font-karantina);font-weight:400;font-size:46px;line-height:46px;text-align:center;text-transform:uppercase;color:#fff}
 .h1 .gold{background:linear-gradient(140deg,var(--gold-1) 0%,var(--gold-2) 50%,rgba(255,223,112,.83) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .cta{left:20px;width:350px;height:110px}.cta img{position:absolute;left:-15px;top:-11px;width:380px;height:140px}.cta .lbl{position:absolute;left:84.4px;top:42.2px;width:182px;height:25px}.cta-1{top:447px}
-.timer{left:128px;top:565px;width:134px;height:46px;font-family:var(--font-display);font-weight:600;font-size:42px;line-height:42px;color:#fff;-webkit-text-stroke:var(--stroke);paint-order:stroke fill;font-variant-numeric:tabular-nums}
-.timer span{position:absolute;top:4px;text-align:left}.timer i{position:absolute;top:0;width:8px;text-align:center;font-style:normal}
-.timer .s1{left:0;width:34px}.timer .c1{left:38px}.timer .s2{left:50px;width:34px}.timer .c2{left:88px}.timer .s3{left:101px;width:33px}
+.timer{left:128px;top:565px;width:134px;height:46px;font-family:var(--font-display);font-weight:400;font-size:42px;line-height:42px;color:#fff;text-align:center;font-variant-numeric:tabular-nums}
 .caption{left:85px;top:619px;width:219px;font-size:16px;line-height:16px;white-space:nowrap}
 .arrow{left:309.5px;top:558.5px;width:37px;height:74px}
 .h2{font-family:var(--font-karantina);font-weight:400;font-size:46px;line-height:46px;letter-spacing:.02em;text-transform:uppercase;color:#fff;white-space:nowrap}
-.h2-gifts{left:22px;top:662px;width:347px}
+.h2-gifts{left:22px;top:662px;width:347px;font-size:40px;line-height:40px}
 </style>
 <link rel="stylesheet" href="./css/main.css" media="print" onload="this.media='all'" />
 <noscript>
@@ -68,9 +66,7 @@
     <img class="lbl" src="./assets/txt/cta1.svg" alt="Bepul qatnashish" width="182" height="25" loading="lazy" decoding="async">
   </button>
 
-  <div class="n timer" data-timer="hms">
-    <span class="s1" data-slot>02</span><i class="c1">:</i><span class="s2" data-slot>05</span><i class="c2">:</i><span class="s3" data-slot>35</span>
-  </div>
+  <div class="n timer" data-timer="ms">01:59</div>
   <p class="n caption">Bepul qatnashishga ulguring!</p>
   <img class="n arrow" src="./assets/s2-arrow.svg" alt="" width="37" height="74" loading="lazy" decoding="async">
 
@@ -97,23 +93,23 @@
 
   <span class="n num num-1">01</span>
   <p class="n li-txt li-txt-1">AI’ga to’g’ri so’rov (prompt) berish<br>formulasini o’rganasiz &mdash; <span class="b">yillab dasturlash<br>o’rganmasdan</span> sayt va Telegram bot yasang</p>
-  <span class="n dot dot-1"></span>
+  <img class="n check-ico check-1" src="./assets/s2-check.avif" alt="" width="18" height="18" loading="lazy" decoding="async">
 
   <span class="n num num-2">02</span>
   <p class="n li-txt li-txt-2">AI orqali reklama videolari, <span class="b">rasm va dizayn postlar yasashni</span> ko’rasiz &mdash; bunday videolar uchun bozorda 20&ndash;50$ to’lanmoqda</p>
-  <span class="n dot dot-2"></span>
+  <img class="n check-ico check-2" src="./assets/s2-check.avif" alt="" width="18" height="18" loading="lazy" decoding="async">
 
   <span class="n num num-3">03</span>
   <p class="n li-txt li-txt-3">Bir kishiga SMM, videograf va storismaker uchun alohida pul to’lash o’rniga, bu <span class="b">ishlarni AI’ga qildirish</span> tizimini olasiz</p>
-  <span class="n dot dot-3"></span>
+  <img class="n check-ico check-3" src="./assets/s2-check.avif" alt="" width="18" height="18" loading="lazy" decoding="async">
 
   <span class="n num num-4">04</span>
   <p class="n li-txt li-txt-4"><span class="b">Hisobot, prezentatsiya va hujjatlaringizni<br></span>AI bilan daqiqalarda tayyorlashni o’rganasiz soatlab ketadigan ish bir necha daqiqada</p>
-  <span class="n dot dot-4"></span>
+  <img class="n check-ico check-4" src="./assets/s2-check.avif" alt="" width="18" height="18" loading="lazy" decoding="async">
 
   <span class="n num num-5">05</span>
   <p class="n li-txt li-txt-5">AI’ni o’rganib qo’shimcha <span class="b">oyiga 500&ndash;1000$ daromadga</span> chiqish va birinchi mijozni topish qadamlarini bilib olasiz</p>
-  <span class="n dot dot-5"></span>
+  <img class="n check-ico check-5" src="./assets/s2-check.avif" alt="" width="18" height="18" loading="lazy" decoding="async">
 
   <button type="button" class="n btn cta cta-3 registerBtn">
     <img src="./assets/s2-btn.avif" alt="" width="380" height="140" loading="lazy" decoding="async">
