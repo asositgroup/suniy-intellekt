@@ -1,9 +1,28 @@
-// Relay — hamma loyiha uchun bitta manzil. Loyihani PROJECT ajratadi, va u
-// registrdagi nom bilan aynan bir xil bo'lishi shart. Mos kelmasa relay
-// PROJECT_NOT_FOUND qaytaradi va lead hech qayerga tushmaydi.
-// Ikkalasini ham /sheets to'ldiradi; qo'lda yozilmaydi.
-const RELAY_ENDPOINT = "{{RELAY_ENDPOINT}}";
-const PROJECT_KEY = "{{PROJECT_KEY}}";
+// Bu loyihaning o'z Apps Script endpointi. Umumiy relay emas — shuning uchun
+// loyihani `project` kaliti emas, `sheetName` (jadvaldagi varaq nomi) ajratadi.
+// O'lchangan: `sheetName` yuborilmasa MISSING_SHEET qaytadi.
+const RELAY_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbyH-OEl8EAXwnyQIih1R5KrjzaNn5YkntDpYghFtnpkdueoK5e3rlV-2MIkLKM2WU5v/exec";
+const SHEET_NAME = "Lead";
+
+// Sana ustunining sarlavhasi — TO'G'RI TIRNOQ (U+0027) bilan. O'lchangan:
+// "o’tgan" (U+2019) variantlari INVALID_FIELDS qaytaradi.
+const DATE_FIELD = "Royhatdan o'tgan vaqti";
+
+function toshkentVaqti(ms) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tashkent",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date(ms));
+  const g = (t) => parts.find((p) => p.type === t).value;
+  return `${g("year")}-${g("month")}-${g("day")} - ${g("hour")}:${g("minute")}:${g("second")}`;
+}
 
 async function sendFormData() {
   const formDataRaw = localStorage.getItem("formData");
@@ -11,33 +30,27 @@ async function sendFormData() {
     return;
   }
 
-  const formDataObj = JSON.parse(formDataRaw);
-
-  // Ustun nomlari loyihaning o'z jadvalidagi sarlavha bilan aynan mos
-  // kelishi kerak. Mos kelmasa relay qatorni yozmaydi va reject qaytaradi.
-  // "Royhatdan o'tgan vaqti" ataylab yuborilmaydi — uni relay Toshkent
-  // vaqtida o'zi qo'yadi.
-  const formData = new FormData();
-  formData.append("project", PROJECT_KEY);
-  formData.append("Ism", formDataObj.Ism || "");
-  formData.append("Telefon raqam", formDataObj.TelefonRaqam || "");
-
-  // Familiya faqat dizaynda alohida maydon bo'lganda yuboriladi. Bo'sh bo'lsa
-  // ham qo'shib yuborilsa, jadvalda "Familiya" ustuni yo'q loyihada butun
-  // lead INVALID_FIELDS bilan rad etilardi — standart forma esa ikki maydonli.
-  if (formDataObj.Familiya) {
-    formData.append("Familiya", formDataObj.Familiya);
-  }
-
   try {
+    const formDataObj = JSON.parse(formDataRaw);
+
+    const formData = new FormData();
+    formData.append("sheetName", SHEET_NAME);
+    formData.append("Ism", formDataObj.Ism || "");
+    formData.append("Telefon raqam", formDataObj.TelefonRaqam || "");
+    formData.append(
+      DATE_FIELD,
+      toshkentVaqti(Number(formDataObj.YuborilganVaqt) || Date.now())
+    );
+
+    if (formDataObj.Familiya) {
+      formData.append("Familiya", formDataObj.Familiya);
+    }
+
     const response = await fetch(RELAY_ENDPOINT, {
       method: "POST",
       body: formData,
     });
 
-    // HTTP 200 yetarli emas. Apps Script rad etganda ham 200 qaytaradi va
-    // javob ichida { ok: false } bo'ladi — faqat response.ok ga qarash
-    // aynan shu loyihada leadlarni jimgina yo'qotgan xato.
     if (!response.ok) throw new Error("HTTP " + response.status);
 
     const result = await response.json();
@@ -45,8 +58,6 @@ async function sendFormData() {
 
     localStorage.removeItem("formData");
   } catch (error) {
-    // localStorage ataylab tozalanmaydi: ma'lumot brauzerda qoladi va
-    // sahifa yangilanganda qayta yuborishga urinadi.
     console.error("Lead yuborilmadi:", error);
     const errorEl = document.getElementById("errorMessage");
     if (errorEl) errorEl.style.display = "block";
