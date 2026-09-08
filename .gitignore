@@ -1,0 +1,25 @@
+# Working material for agents and the font pipeline.
+# Vercel serves every committed file publicly, so none of this belongs in the repo.
+# RULES.md and MODAL.md are listed here deliberately: on an earlier project they
+# were committed before this rule existed and stayed readable on the live domain.
+# Secrets. A committed .env would be readable on the live domain.
+.env
+.env.*
+!.env.example
+
+check.mjs
+tools/
+CLAUDE.md
+PROJECT.md
+WORKFLOW.md
+RULES.md
+MODAL.md
+SHEETS.md
+FONTS.md
+HANDOFF.md
+design-refs/
+_check/
+example/
+node_modules/
+.playwright-mcp/
+.vscode/
