@@ -35,16 +35,11 @@ async function sendFormData() {
 
     const formData = new FormData();
     formData.append("sheetName", SHEET_NAME);
-    formData.append("Ism", formDataObj.Ism || "");
     formData.append("Telefon raqam", formDataObj.TelefonRaqam || "");
     formData.append(
       DATE_FIELD,
       toshkentVaqti(Number(formDataObj.YuborilganVaqt) || Date.now())
     );
-
-    if (formDataObj.Familiya) {
-      formData.append("Familiya", formDataObj.Familiya);
-    }
 
     const response = await fetch(RELAY_ENDPOINT, {
       method: "POST",

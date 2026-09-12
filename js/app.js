@@ -4,12 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     n = document.getElementById("closeModalBtn"),
     o = document.querySelector(".homeModalOverlay"),
     d = document.getElementById("registrationForm"),
-    l = document.getElementById("name"),
-    a = document.getElementById("nameError"),
     c = document.getElementById("phone"),
     i = document.getElementById("phoneError"),
-    u = document.getElementById("surname"),
-    w = document.getElementById("surnameError"),
     r = document.getElementById("submitBtn");
 
   const E = window.phoneFormatter;
@@ -23,8 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
       (g = window.scrollY),
       (t.style.display = "block"),
       (document.body.style.overflow = "hidden"),
-      (a.style.display = "none"),
-      w && (w.style.display = "none"),
       (i.style.display = "none"));
   }
 
@@ -52,22 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const t = l.value.trim(),
-      n = c.value.trim(),
-      b = u ? u.value.trim() : "";
+    const n = c.value.trim();
 
     let o = !1;
-
-    if (t) a.style.display = "none";
-    else (a.style.display = "block"), (o = !0);
-
-    // Familiya maydoni har dizaynda chizilmagan. Bor bo'lsa majburiy, yo'q
-    // bo'lsa o'tkazib yuboriladi — aks holda usiz sahifalarda forma umuman
-    // yuborilmay qolardi, xatosiz. Bu #timer bilan bir xil qoida.
-    if (u) {
-      if (b) w.style.display = "none";
-      else (w.style.display = "block"), (o = !0);
-    }
 
     if (E.validate(n)) i.style.display = "none";
     else (i.style.display = "block"), (o = !0);
@@ -81,8 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Tashrifchining qurilma soati noto'g'ri yoki boshqa mintaqada bo'lishi
     // mumkin, va o'sha vaqt jadvalga o'sha holicha tushardi.
     const payload = {
-      Ism: t,
-      Familiya: b,
       TelefonRaqam: E.getCurrentCode() + " " + n,
     };
 
@@ -91,9 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     r.textContent = "DAVOM ETISH";
     r.disabled = !1;
-    l.value = "";
     c.value = "";
-    u && (u.value = "");
     v();
   });
 });
